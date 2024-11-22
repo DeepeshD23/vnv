@@ -1,5 +1,7 @@
 "use client";
 import React from "react";
+import { useState } from 'react';
+
 
 function MainComponent() {
   const [activeTab, setActiveTab] = useState("users");
@@ -39,6 +41,7 @@ function MainComponent() {
   const [editingRole, setEditingRole] = useState(null);
   const [showUserModal, setShowUserModal] = useState(false);
   const [showRoleModal, setShowRoleModal] = useState(false);
+
   const handleUserSubmit = (user) => {
     if (editingUser) {
       setUsers(users.map((u) => (u.id === editingUser.id ? user : u)));
@@ -48,6 +51,7 @@ function MainComponent() {
     setShowUserModal(false);
     setEditingUser(null);
   };
+
   const handleRoleSubmit = (role) => {
     if (editingRole) {
       setRoles(roles.map((r) => (r.id === editingRole.id ? role : r)));
@@ -58,29 +62,26 @@ function MainComponent() {
     setEditingRole(null);
   };
 
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-4 md:p-8">
-      <div className="bg-white rounded-xl shadow-2xl p-6 max-w-6xl mx-auto">
-        <h1 className="text-4xl font-roboto mb-8 text-center bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
-          Role-Based Access Control
-        </h1>
-        <div className="flex mb-8 space-x-4 justify-center">
+  
+
+  return (  
+    <div className="min-h-screen bg-gray-100 p-8">
+      <div className="bg-white rounded-lg shadow-lg p-6 max-w-6xl mx-auto">
+        <h1 className="text-3xl font-roboto mb-6">Role-Based Access Control</h1>
+
+        <div className="flex mb-6 space-x-4">
           <button
             onClick={() => setActiveTab("users")}
-            className={`px-6 py-3 rounded-lg font-medium transition-all duration-200 ${
-              activeTab === "users"
-                ? "bg-blue-600 text-white shadow-lg"
-                : "bg-gray-100 hover:bg-gray-200"
+            className={`px-4 py-2 rounded ${
+              activeTab === "users" ? "bg-blue-500 text-white" : "bg-gray-200"
             }`}
           >
             Users
           </button>
           <button
             onClick={() => setActiveTab("roles")}
-            className={`px-6 py-3 rounded-lg font-medium transition-all duration-200 ${
-              activeTab === "roles"
-                ? "bg-blue-600 text-white shadow-lg"
-                : "bg-gray-100 hover:bg-gray-200"
+            className={`px-4 py-2 rounded ${
+              activeTab === "roles" ? "bg-blue-500 text-white" : "bg-gray-200"
             }`}
           >
             Roles
@@ -88,21 +89,18 @@ function MainComponent() {
         </div>
 
         {activeTab === "users" ? (
-          <div className="bg-white rounded-lg">
-            <div className="flex justify-between items-center mb-6">
-              <h2 className="text-2xl font-roboto text-gray-800">
-                User Management
-              </h2>
+          <div>
+            <div className="flex justify-between mb-4">
+              <h2 className="text-xl font-roboto">User Management</h2>
               <button
                 onClick={() => setShowUserModal(true)}
-                className="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-lg shadow-md transition-all duration-200 flex items-center space-x-2"
+                className="bg-green-500 text-white px-4 py-2 rounded"
               >
-                <i className="fas fa-plus"></i>
-                <span>Add User</span>
+                Add User
               </button>
             </div>
             <div className="overflow-x-auto">
-              <table className="min-w-full divide-y divide-gray-200">
+              <table className="min-w-full">
                 <thead className="bg-gray-50">
                   <tr>
                     <th className="px-6 py-3 text-left">Name</th>
@@ -112,12 +110,9 @@ function MainComponent() {
                     <th className="px-6 py-3 text-left">Actions</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-gray-100">
+                <tbody>
                   {users.map((user) => (
-                    <tr
-                      key={user.id}
-                      className="hover:bg-gray-50 transition-colors duration-200"
-                    >
+                    <tr key={user.id} className="border-t">
                       <td className="px-6 py-4">{user.name}</td>
                       <td className="px-6 py-4">{user.email}</td>
                       <td className="px-6 py-4">{user.role}</td>
@@ -158,21 +153,18 @@ function MainComponent() {
             </div>
           </div>
         ) : (
-          <div className="bg-white rounded-lg">
-            <div className="flex justify-between items-center mb-6">
-              <h2 className="text-2xl font-roboto text-gray-800">
-                Role Management
-              </h2>
+          <div>
+            <div className="flex justify-between mb-4">
+              <h2 className="text-xl font-roboto">Role Management</h2>
               <button
                 onClick={() => setShowRoleModal(true)}
-                className="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-lg shadow-md transition-all duration-200 flex items-center space-x-2"
+                className="bg-green-500 text-white px-4 py-2 rounded"
               >
-                <i className="fas fa-plus"></i>
-                <span>Add Role</span>
+                Add Role
               </button>
             </div>
             <div className="overflow-x-auto">
-              <table className="min-w-full divide-y divide-gray-200">
+              <table className="min-w-full">
                 <thead className="bg-gray-50">
                   <tr>
                     <th className="px-6 py-3 text-left">Role</th>
@@ -180,12 +172,9 @@ function MainComponent() {
                     <th className="px-6 py-3 text-left">Actions</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-gray-100">
+                <tbody>
                   {roles.map((role) => (
-                    <tr
-                      key={role.id}
-                      className="hover:bg-gray-50 transition-colors duration-200"
-                    >
+                    <tr key={role.id} className="border-t">
                       <td className="px-6 py-4">{role.name}</td>
                       <td className="px-6 py-4">
                         <div className="flex flex-wrap gap-2">
@@ -227,8 +216,8 @@ function MainComponent() {
         )}
 
         {showUserModal && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center z-50">
-            <div className="bg-white p-8 rounded-xl shadow-xl w-full max-w-md m-4">
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+            <div className="bg-white p-6 rounded-lg w-96">
               <h2 className="text-xl font-roboto mb-4">
                 {editingUser ? "Edit User" : "Add User"}
               </h2>
@@ -248,14 +237,14 @@ function MainComponent() {
                 <input
                   name="name"
                   defaultValue={editingUser?.name}
-                  className="w-full mb-4 p-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
+                  className="w-full mb-4 p-2 border rounded"
                   placeholder="Name"
                   required
                 />
                 <input
                   name="email"
                   defaultValue={editingUser?.email}
-                  className="w-full mb-4 p-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
+                  className="w-full mb-4 p-2 border rounded"
                   placeholder="Email"
                   type="email"
                   required
@@ -263,7 +252,7 @@ function MainComponent() {
                 <select
                   name="role"
                   defaultValue={editingUser?.role}
-                  className="w-full mb-4 p-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
+                  className="w-full mb-4 p-2 border rounded"
                   required
                 >
                   {roles.map((role) => (
@@ -275,26 +264,26 @@ function MainComponent() {
                 <select
                   name="status"
                   defaultValue={editingUser?.status}
-                  className="w-full mb-6 p-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
+                  className="w-full mb-4 p-2 border rounded"
                   required
                 >
                   <option value="active">Active</option>
                   <option value="inactive">Inactive</option>
                 </select>
-                <div className="flex justify-end gap-3">
+                <div className="flex justify-end gap-2">
                   <button
                     type="button"
                     onClick={() => {
                       setShowUserModal(false);
                       setEditingUser(null);
                     }}
-                    className="px-6 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg transition-all duration-200"
+                    className="px-4 py-2 bg-gray-200 rounded"
                   >
                     Cancel
                   </button>
                   <button
                     type="submit"
-                    className="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg shadow-md transition-all duration-200"
+                    className="px-4 py-2 bg-blue-500 text-white rounded"
                   >
                     Save
                   </button>
@@ -305,8 +294,8 @@ function MainComponent() {
         )}
 
         {showRoleModal && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center z-50">
-            <div className="bg-white p-8 rounded-xl shadow-xl w-full max-w-md m-4">
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+            <div className="bg-white p-6 rounded-lg w-96">
               <h2 className="text-xl font-roboto mb-4">
                 {editingRole ? "Edit Role" : "Add Role"}
               </h2>
@@ -330,49 +319,42 @@ function MainComponent() {
                 <input
                   name="name"
                   defaultValue={editingRole?.name}
-                  className="w-full mb-4 p-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
+                  className="w-full mb-4 p-2 border rounded"
                   placeholder="Role Name"
                   required
                 />
-                <div className="mb-6">
-                  <p className="mb-3 text-gray-700 font-medium">Permissions:</p>
-                  <div className="space-y-2 bg-gray-50 p-4 rounded-lg">
-                    {["create", "read", "update", "delete"].map(
-                      (permission) => (
-                        <label
-                          key={permission}
-                          className="flex items-center gap-3 p-2 hover:bg-gray-100 rounded transition-colors duration-200"
-                        >
-                          <input
-                            type="checkbox"
-                            name={permission}
-                            defaultChecked={editingRole?.permissions.includes(
-                              permission
-                            )}
-                            className="w-4 h-4 text-blue-600 rounded focus:ring-blue-500"
-                          />
-                          <span className="capitalize text-gray-700">
-                            {permission}
-                          </span>
-                        </label>
-                      )
-                    )}
-                  </div>
+                <div className="mb-4">
+                  <p className="mb-2">Permissions:</p>
+                  {["create", "read", "update", "delete"].map((permission) => (
+                    <label
+                      key={permission}
+                      className="flex items-center gap-2 mb-2"
+                    >
+                      <input
+                        type="checkbox"
+                        name={permission}
+                        defaultChecked={editingRole?.permissions.includes(
+                          permission
+                        )}
+                      />
+                      <span className="capitalize">{permission}</span>
+                    </label>
+                  ))}
                 </div>
-                <div className="flex justify-end gap-3">
+                <div className="flex justify-end gap-2">
                   <button
                     type="button"
                     onClick={() => {
                       setShowRoleModal(false);
                       setEditingRole(null);
                     }}
-                    className="px-6 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg transition-all duration-200"
+                    className="px-4 py-2 bg-gray-200 rounded"
                   >
                     Cancel
                   </button>
                   <button
                     type="submit"
-                    className="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg shadow-md transition-all duration-200"
+                    className="px-4 py-2 bg-blue-500 text-white rounded"
                   >
                     Save
                   </button>
